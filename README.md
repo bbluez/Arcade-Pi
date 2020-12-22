@@ -1,10 +1,14 @@
-# Saito MQTT NeoPixel Bed
+Arcade PI RTSP server and NeoPixel based MQTT alerting / DHT!! MQTT posting. 
 
-Very simple mqtt client app in Python that allows control of NeoPixel ring
-attached to the my kids bed.
+#Fork of "saito_mqtt_bed_neopixels" 
+
+# Arcade Pi
+
+Atempt to create a arcade style cabinet that connects to an MQTT broker for publishing temps and reading alert to publish on a 8LED neopixel light. I am going with a Pi as I also want a RTSP livecam for watching him at night (he is a toddler and having some sleep issues), but he is terrifed of Wyze cams. 
+
+There are various guides on RTSP and Pi's so I won't cover that here. 
 
 Makes use of Jeremy Garffs neopixel lib for the Rpi. More info at:
-
 * https://learn.adafruit.com/neopixels-on-raspberry-pi?view=all
 * https://github.com/jgarff/rpi_ws281x
 
