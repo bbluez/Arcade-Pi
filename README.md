@@ -26,11 +26,11 @@ sudo python setup.py install
 
 ## Other requirements
 
-You also need jsonschema and paho mqtt libs.
+You also need jsonschema and paho mqtt libs. *Updated to pip3
 
 ```shell
-sudo pip install jsonschema
-sudo pip install paho-mqtt
+sudo pip3 install jsonschema
+sudo pip3 install paho-mqtt
 ```
 
 ## Hardware
