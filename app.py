@@ -11,8 +11,8 @@ from random import *
 
 # LED strip configuration:
 LED_COUNT      = 8      # Number of LED pixels.
-LED_PIN        = 18      # GPIO pin connected to the pixels (must support PWM!).
-BROKER_ADDRESS = "10.0.0.100"        # broker.mqttdashboard.com
+LED_PIN        = 10      # GPIO pin connected to the pixels (must support PWM!).
+BROKER_ADDRESS = "192.168.1.*"        # broker.mqttdashboard.com UPDATE THIS 
 BROKER_PORT = 1883                 # 1883
 QOS_STATE_PUBLISH = 1
     # At most once (0)
@@ -90,9 +90,9 @@ def on_message_full_state(client, userdata, message):
         publish_state(client)
 
     except exceptions.ValidationError:
-        print "Message failed validation"
+        print ("Message failed validation")
     except ValueError:
-        print "Invalid json string"
+        print ("Invalid json string")
 
 def publish_state(client):
     json_state = {
@@ -105,11 +105,11 @@ def publish_state(client):
         }
     }
 
-    (status, mid) = client.publish("saito/bed/neopixels", json.dumps(json_state), \
+    (status, mid) = client.publish("kids/jack/status", json.dumps(json_state), \
         QOS_STATE_PUBLISH, RETAIN_STATE_PUBLISH)
 
     if status != 0:
-        print("Could not send state")
+     print("Could not send state")
 
 # Main program logic follows:
 if __name__ == '__main__':
@@ -120,12 +120,12 @@ if __name__ == '__main__':
     client1.on_connect = on_connect
 
     # Home Assistant compatible
-    client1.message_callback_add("saito/bed/neopixels/set", on_message_full_state)
+    client1.message_callback_add("kids/jack/status", on_message_full_state)
     time.sleep(1)
 
     client1.connect(BROKER_ADDRESS, BROKER_PORT)
     client1.loop_start()
-    client1.subscribe("saito/bed/neopixels/set")
+    client1.subscribe("kids/jack/status")
 
     justoutofloop = False
     print ('Press Ctrl-C to quit.')
@@ -144,12 +144,12 @@ if __name__ == '__main__':
                neopixelstring.theaterChase(Color(randint(0,127), randint(0,127), randint(0,127)))
         if not loopflag and justoutofloop:
             justoutofloop = False
-            client1.publish("saito/bed/neopixels/set", json_message, 0, False)
+            client1.publish("kids/jack/status", json_message, 0, False)
         time.sleep(.1)
 
     # This should happen but it doesnt because CTRL-C kills process.
     # Fix later
-    print "Disconnecting"
+    print ("Disconnecting")
     publish_state(client1)
     client1.disconnect()
     client1.loop_stop()
